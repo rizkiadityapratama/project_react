@@ -1,0 +1,62 @@
+{
+  "guru": [
+    {
+      "nik": "1919191",
+      "nama": "bang Haidar☠",
+      "mapel": "progammer",
+      "gender": "Laki-laki",
+      "id": "f0ad"
+    },
+    {
+      "nik": "99999",
+      "nama": "rrq Anthony👽",
+      "mapel": "skill gasing ala saturnus",
+      "gender": "Laki-laki",
+      "id": "eb79"
+    },
+    {
+      "nik": "1111",
+      "nama": "king mudryk😈",
+      "mapel": "qoutes mutiara",
+      "gender": "Laki-laki",
+      "id": "2b7e"
+    },
+    {
+      "id": "ec88",
+      "nama": "andre👾",
+      "nik": "6666",
+      "mapel": "belajar cukur",
+      "gender": "Laki-laki"
+    }
+  ],
+  "siswa": [
+    {
+      "nik": "123",
+      "nama": "zidan",
+      "jurusan": "TKJ",
+      "gender": "Laki-laki",
+      "id": "4b51"
+    },
+    {
+      "nik": "11111",
+      "nama": "Surya Tanjung",
+      "jurusan": "TKJ",
+      "gender": "Perempuan",
+      "id": "52e0"
+    },
+    {
+      "nik": "111110000",
+      "nama": "Bisma",
+      "jurusan": "TKJ",
+      "gender": "Perempuan",
+      "id": "ebee"
+    },
+    {
+      "id": "ab86",
+      "nama": "Dimas",
+      "nik": "0889",
+      "jurusan": "TKJ",
+      "gender": "Laki-laki"
+    }
+  ]
+}
