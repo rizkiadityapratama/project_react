@@ -66,21 +66,22 @@ export default function EditData() {
       </Typography>
 
       <form onSubmit={handleSubmit}>
-        <TextField
-          fullWidth
-          label="NIK"
-          name="nik"
-          value={nik}  // Menghubungkan dengan state NIK
-          onChange={(e) => setNik(e.target.value)}  
-          margin="normal"
-          variant="outlined"
-        />
+        {/* Nama Guru di atas NIK */}
         <TextField
           fullWidth
           label="Nama"
           name="nama"
           value={nama}  // Menghubungkan dengan state Nama
           onChange={(e) => setNama(e.target.value)}  
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          fullWidth
+          label="NIK"
+          name="nik"
+          value={nik}  // Menghubungkan dengan state NIK
+          onChange={(e) => setNik(e.target.value)}  
           margin="normal"
           variant="outlined"
         />

@@ -15,34 +15,35 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import SchoolIcon from '@mui/icons-material/School'; 
 import PeopleIcon from '@mui/icons-material/People'; 
+import HomeIcon from '@mui/icons-material/Home';  // Mengimpor ikon Rumah
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 
-// Sidebar width
+// Lebar Sidebar
 const drawerWidth = 240;
 
-// Navbar items with icons
+// Daftar item navigasi dengan ikon
 const navItems = [
-  { label: 'Home', path: '/Home', icon: <PeopleIcon fontSize="large" /> },
+  { label: 'Home', path: '/Home', icon: <HomeIcon fontSize="large" /> },  // Menggunakan ikon Rumah untuk menu Home
   { label: 'DataGuru', path: '/Dataguru', icon: <SchoolIcon fontSize="large" /> },
   { label: 'DataSiswa', path: '/Datasiswa', icon: <PeopleIcon fontSize="large" /> },
 ];
 
-// Styled component for the Drawer (Sidebar)
+// Komponen styled untuk Drawer (Sidebar)
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
-    backgroundColor: '#FF5733', // Orange red
+    backgroundColor: '#FF5733', // Warna latar belakang merah-oranye
     color: theme.palette.common.white,
     width: drawerWidth,
     border: 'none',
-    boxShadow: '4px 0 10px rgba(0, 0, 0, 0.1)', // Shadow effect
+    boxShadow: '4px 0 10px rgba(0, 0, 0, 0.1)', // Efek bayangan
   },
 }));
 
-// Styled component for the AppBar (Navbar)
+// Komponen styled untuk AppBar (Navbar)
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: '#FF7043', // Orange red
-  zIndex: theme.zIndex.drawer + 1, // Ensure AppBar is above the Drawer
+  backgroundColor: '#FF7043', // Warna latar belakang oranye-merah
+  zIndex: theme.zIndex.drawer + 1, // Agar AppBar berada di atas Drawer
   boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
 }));
 
@@ -50,12 +51,12 @@ function Sidebar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  // Toggle drawer for mobile view
+  // Fungsi untuk men-toggle Drawer pada tampilan mobile
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
-  // Drawer content
+  // Konten untuk Drawer (Sidebar)
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h5" sx={{ my: 2, fontWeight: 'bold' }}>
@@ -76,7 +77,7 @@ function Sidebar(props) {
                 color: '#fff',
                 transition: 'background-color 0.3s ease',
                 '&:hover': {
-                  backgroundColor: '#FF7043', // Hover effect
+                  backgroundColor: '#FF7043', // Efek hover pada item
                 },
               }}
             >
@@ -109,7 +110,7 @@ function Sidebar(props) {
           >
             <MenuIcon />
           </IconButton>
-          {/* New title here */}
+          {/* Judul baru di navbar */}
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Data Tabel Sederhana Guru Dan Siswa
           </Typography>
@@ -130,17 +131,17 @@ function Sidebar(props) {
         </StyledDrawer>
       </nav>
 
-      {/* Main content */}
+      {/* Konten utama */}
       <Box
         component="main"
         sx={{
           p: 3,
           width: `calc(100% - ${drawerWidth}px)`,
           marginLeft: { sm: `${drawerWidth}px` },
-          marginTop: '64px', // Margin to ensure AppBar does not overlap content
+          marginTop: '64px', // Memberikan margin agar AppBar tidak menutupi konten
         }}
       >
-        {/* Main content goes here */}
+        {/* Konten utama ditambahkan di sini */}
       </Box>
     </Box>
   );

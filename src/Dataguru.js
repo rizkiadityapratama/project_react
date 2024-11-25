@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import { Tooltip } from '@mui/material'; // Tooltip untuk pengalaman pengguna yang lebih baik
+import { Tooltip, TextField } from '@mui/material'; // Import TextField untuk input pencarian
 
 // Komponen yang disesuaikan
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -63,7 +63,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     boxShadow: theme.shadows[6],
   },
   margin: '5px',
-}));  
+}));
 
 const StyledHeader = styled(Typography)(({ theme }) => ({
   fontSize: '2.5rem',
@@ -76,12 +76,14 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
 
 // Komponen Dashboard
 export default function Dashboard() {
-  const [guru, setGuru] = useState([]);
+  const [guru, setGuru] = useState([]); // Menyimpan data guru
+  const [filteredGuru, setFilteredGuru] = useState([]); // Menyimpan data guru yang sudah difilter
+  const [searchKeyword, setSearchKeyword] = useState(''); // Menyimpan kata kunci pencarian
   const [sortConfig, setSortConfig] = useState({
     key: 'no',
     direction: 'asc',
   });
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook untuk navigasi 
 
   // Mengambil data guru dari API
   useEffect(() => {
@@ -89,11 +91,25 @@ export default function Dashboard() {
       .then(response => {
         console.log("Data diterima:", response.data);
         setGuru(response.data);
+        setFilteredGuru(response.data); // Menampilkan semua data pada awalnya
       })
       .catch(error => {
         console.error("Error saat mengambil data:", error);
       });
   }, []);
+
+  // Fungsi untuk menangani pencarian
+  const handleSearch = (event) => {
+    const keyword = event.target.value;
+    setSearchKeyword(keyword);
+
+    // Menyaring guru berdasarkan nama atau NIK yang cocok dengan kata kunci pencarian
+    const filtered = guru.filter(guru =>
+      guru.nama.toLowerCase().includes(keyword.toLowerCase()) ||
+      guru.nik.toLowerCase().includes(keyword.toLowerCase())
+    );
+    setFilteredGuru(filtered);
+  };
 
   // Fungsionalitas pengurutan
   const requestSort = (key) => {
@@ -104,7 +120,7 @@ export default function Dashboard() {
     setSortConfig({ key, direction });
   };
 
-  const teacher = [...guru].sort((a, b) => {
+  const teacher = [...filteredGuru].sort((a, b) => {
     const aValue = a[sortConfig.key];
     const bValue = b[sortConfig.key];
 
@@ -134,6 +150,7 @@ export default function Dashboard() {
         axios.delete(`http://localhost:3030/guru/${id}`)
           .then(() => {
             setGuru(prevGuru => prevGuru.filter(teacher => teacher.id !== id));
+            setFilteredGuru(prevGuru => prevGuru.filter(teacher => teacher.id !== id)); // Update filtered list after delete
             Swal.fire('Dihapus!', 'Data guru telah dihapus.', 'success');
           })
           .catch((error) => {
@@ -165,62 +182,76 @@ export default function Dashboard() {
         Tambah Guru
       </StyledButton>
 
-      <Box
-        component="main"
-        sx={{
-          p: 3,
-          marginLeft: '240px',
-          width: 'calc(100% - 240px)',
-        }}
-      >
-        <TableContainer component={Paper} elevation={3} style={{ marginTop: '20px' }}>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell onClick={() => requestSort('no')}>No</StyledTableCell>
-                <StyledTableCell onClick={() => requestSort('nik')}>NIK</StyledTableCell>
-                <StyledTableCell onClick={() => requestSort('nama')}>Nama</StyledTableCell>
-                <StyledTableCell align="right" onClick={() => requestSort('mapel')}>Mapel</StyledTableCell>
-                <StyledTableCell align="right" onClick={() => requestSort('gender')}>Gender</StyledTableCell>
-                <StyledTableCell align="right">Aksi</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {teacher.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={6} align="center" style={{ padding: '20px' }}>
-                    Tidak ada data
-                  </TableCell>
-                </TableRow>
-              ) : (
-                teacher.map((guru, index) => (
-                  <StyledTableRow key={guru.id}>
-                    <StyledTableCell>{index + 1}</StyledTableCell>
-                    <StyledTableCell>{guru.nik}</StyledTableCell>
-                    <StyledTableCell>{guru.nama}</StyledTableCell>
-                    <StyledTableCell align="right">{guru.mapel}</StyledTableCell>
-                    <StyledTableCell align="right">{guru.gender}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      <Tooltip title="Edit" arrow>
-                        <Link to={`/EditDataguru/${guru.id}`}>
-                          <StyledButton variant="contained" color="primary" style={{ marginRight: '10px' }}>
-                            🖊
-                          </StyledButton>
-                        </Link>
-                      </Tooltip>
-                      <Tooltip title="Delete" arrow>
-                        <StyledButton variant="contained" color="error" onClick={() => handleDelete(guru.id)}>
-                          🗑️
-                        </StyledButton>
-                      </Tooltip>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      {/* Pencarian */}
+      <Box style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <TextField
+          label="Cari Guru"
+          variant="outlined"
+          value={searchKeyword}
+          onChange={handleSearch}
+          style={{ width: '300px' }}
+        />
       </Box>
+
+      <Box
+  component="main"
+  sx={{
+    p: 3,
+    marginLeft: '240px',
+    width: 'calc(100% - 240px)',
+    backgroundColor: '#FF7043', // Set the background color to orange
+    borderRadius: '8px', // Optional: adds rounded corners to the box
+  }}
+>
+  <TableContainer component={Paper} elevation={3} style={{ marginTop: '0px' }}>
+    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <TableHead>
+        <TableRow>
+          <StyledTableCell onClick={() => requestSort('no')}>No</StyledTableCell>
+          <StyledTableCell onClick={() => requestSort('nik')}>NIK</StyledTableCell>
+          <StyledTableCell onClick={() => requestSort('nama')}>Nama</StyledTableCell>
+          <StyledTableCell align="right" onClick={() => requestSort('mapel')}>Mapel</StyledTableCell>
+          <StyledTableCell align="right" onClick={() => requestSort('gender')}>Gender</StyledTableCell>
+          <StyledTableCell align="right">Aksi</StyledTableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {teacher.length === 0 ? (
+          <TableRow>
+            <TableCell colSpan={6} align="center" style={{ padding: '20px' }}>
+              Tidak ada data
+            </TableCell>
+          </TableRow>
+        ) : (
+          teacher.map((guru, index) => (
+            <StyledTableRow key={guru.id}>
+              <StyledTableCell>{index + 1}</StyledTableCell>
+              <StyledTableCell>{guru.nik}</StyledTableCell>
+              <StyledTableCell>{guru.nama}</StyledTableCell>
+              <StyledTableCell align="right">{guru.mapel}</StyledTableCell>
+              <StyledTableCell align="right">{guru.gender}</StyledTableCell>
+              <StyledTableCell align="right">
+                <Tooltip title="Edit" arrow>
+                  <Link to={`/EditDataguru/${guru.id}`}>
+                    <StyledButton variant="contained" color="primary" style={{ marginRight: '10px' }}>
+                      🖊
+                    </StyledButton>
+                  </Link>
+                </Tooltip>
+                <Tooltip title="Delete" arrow>
+                  <StyledButton variant="contained" color="error" onClick={() => handleDelete(guru.id)}>
+                    🗑️
+                  </StyledButton>
+                </Tooltip>
+              </StyledTableCell>
+            </StyledTableRow>
+          ))
+        )}
+      </TableBody>
+    </Table>
+  </TableContainer>
+</Box>
+
     </>
   );
 }

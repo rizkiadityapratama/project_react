@@ -1,13 +1,6 @@
 {
   "guru": [
     {
-      "nik": "1919191",
-      "nama": "bang Haidar☠",
-      "mapel": "progammer",
-      "gender": "Laki-laki",
-      "id": "f0ad"
-    },
-    {
       "nik": "99999",
       "nama": "rrq Anthony👽",
       "mapel": "skill gasing ala saturnus",
@@ -22,24 +15,38 @@
       "id": "2b7e"
     },
     {
-      "id": "ec88",
-      "nama": "andre👾",
       "nik": "6666",
+      "nama": "andre barber👾",
       "mapel": "belajar cukur",
+      "gender": "Laki-laki",
+      "id": "ec88"
+    },
+    {
+      "nik": "0912",
+      "nama": "bang Haidar☠",
+      "mapel": "progammer",
+      "gender": "Laki-laki",
+      "id": "ef3d"
+    },
+    {
+      "id": "75ea",
+      "nama": "mas rusdi🥶",
+      "nik": "7392",
+      "mapel": "mancing perkoro",
       "gender": "Laki-laki"
     }
   ],
   "siswa": [
     {
       "nik": "123",
-      "nama": "zidan",
+      "nama": "Zidan",
       "jurusan": "TKJ",
       "gender": "Laki-laki",
       "id": "4b51"
     },
     {
       "nik": "11111",
-      "nama": "Surya Tanjung",
+      "nama": "Surya Tanjung🐶",
       "jurusan": "TKJ",
       "gender": "Laki-laki",
       "id": "52e0"
@@ -57,6 +64,13 @@
       "nik": "0889",
       "jurusan": "TKJ",
       "gender": "Laki-laki"
+    },
+    {
+      "nik": "55555555",
+      "nama": "Izzul",
+      "jurusan": "TKJ",
+      "gender": "Laki-laki",
+      "id": "d466"
     }
   ]
 }

@@ -60,10 +60,11 @@ export default function EditData() {
   return (
     <Container maxWidth="sm" sx={{ mt: 5 }}>
       <Typography variant="h4" gutterBottom align="center" color="primary">
-        Ubah Data Murid
+        Ubah Data Siswa
       </Typography>
 
       <form onSubmit={handleSubmit}>
+        {/* NIK di atas Nama */}
         <TextField
           fullWidth
           label="NIK"
@@ -119,7 +120,7 @@ export default function EditData() {
       </form>
 
       <Typography variant="body1" align="center" sx={{ mt: 2 }}>
-        Edit data murid
+        Edit data siswa
       </Typography>
     </Container>
   );
